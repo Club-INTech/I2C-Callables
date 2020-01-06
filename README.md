@@ -6,9 +6,9 @@ A small single-header Arduino based library that takes care of slave I²C manage
 
 The goal of this library is to provide a framework that handles both the I²C communication as an I²C slave and the registration of callable functions that can return data to the master.
 
-## Compatible chips
+## Compatibility
 
-For the time being, the library will only be compatible with ATMega328P from Atmelt as it is the chip used by https://github.com/Club-INTech .
+For the time being, the library will only be compatible with the Arduino Wire library.
 
 ## Usage
 ### Slave
