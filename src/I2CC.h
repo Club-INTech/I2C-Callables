@@ -15,6 +15,13 @@ typedef struct ReturnData {
     void* dataArray;
     /// Length in bytes
     unsigned int dataLength = 0;
+    /// First writable byte
+    unsigned int writeCursor = 0;
+
+    ReturnData(unsigned int size) {
+        dataLength = size;
+        dataArray = malloc(dataLength);
+    }
 } ReturnData;
 
 

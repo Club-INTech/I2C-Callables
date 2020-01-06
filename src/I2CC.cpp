@@ -42,10 +42,8 @@ void handleWrite(int bytesReceived)
     if (bytesReceived <= 0)
     {
         // TODO/FIXME : Helper function? Better way?
-        dataToReturn = new ReturnData;
-        dataToReturn->dataArray = malloc(1);
+        dataToReturn = new ReturnData(1);
         *static_cast<uint8_t*>(dataToReturn->dataArray) = ERR_Write;
-        dataToReturn->dataLength = 1;
     }
 
     // Read the index now as the call is performed last
