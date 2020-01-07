@@ -4,7 +4,8 @@
 
 #include "I2CC.h"
 
-namespace I2CC {
+using namespace I2CC;
+
 void __attribute__((noreturn)) startI2CC(uint8_t slaveID)
 {
     // Begin as a slave and set ID
@@ -42,6 +43,7 @@ void handleWrite(int bytesReceived)
     {
         dataToReturn = new BufferedData(1);
         putData(ERR_Write,dataToReturn);
+        return;
     }
 
     // Read the index now as the call is performed last
@@ -68,5 +70,4 @@ void registerRPC(BufferedData* (*callable)(), unsigned int index)
     {
         callables[index] = callable;
     }
-}
 }
