@@ -18,7 +18,7 @@ static constexpr uint8_t ERR_Write = 254;
 
 /// Array of function pointers on user-defined functions.
 /// BufferedData* should be nullptr if not used, else instantiation is left to the function.
-static BufferedData* (*callables[callableCount])() = {nullptr};
+static BufferedData* (*callables[callableCount])(BufferedData&) = {nullptr};
 
 
 /// Data saved after the master sent a write command, to be retrieved with a requestFrom.
@@ -37,7 +37,7 @@ void handleWrite(int bytesReceived);
 
 /// Adds callbacks to the callables array.
 /// Replaces callback if one is already present at index.
-void registerRPC(BufferedData* (*callable)(), unsigned int index);
+void registerRPC(BufferedData* (*callable)(BufferedData&), unsigned int index);
 }
 
 #endif //I2CC_TESTS_I2CC_H

@@ -15,7 +15,7 @@ For the time being, the library will only be compatible with the Arduino Wire li
 
 On the slave side, where the library is used, the user has to register functions to be called by the master.
 This is done via the `registerRPC` function which will take care of registering an existing function at the given index.  
-The RPC methods need to match the following prototype : `BufferedData* f()`
+The RPC methods need to match the following prototype : `BufferedData* f(BufferedData&)`
 
 Function definition is left up to the user.  
 Initialization of the `BufferedData` struct should be done in the function if it is needed, `dataArray` should be malloc'd. Prefer using the provided constructor.

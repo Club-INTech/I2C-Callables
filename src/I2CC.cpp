@@ -6,7 +6,7 @@
 
 using namespace I2CC;
 
-void __attribute__((noreturn)) startI2CC(uint8_t slaveID)
+void __attribute__((noreturn)) I2CC::startI2CC(uint8_t slaveID)
 {
     // Begin as a slave and set ID
     Wire.begin(slaveID);
@@ -20,7 +20,7 @@ void __attribute__((noreturn)) startI2CC(uint8_t slaveID)
     {}
 }
 
-void sendDataBack()
+void I2CC::sendDataBack()
 {
     if (dataToReturn)
     {
@@ -32,7 +32,7 @@ void sendDataBack()
     }
 }
 
-void handleWrite(int bytesReceived)
+void I2CC::handleWrite(int bytesReceived)
 {
     if (dataToReturn)
     {
@@ -60,11 +60,11 @@ void handleWrite(int bytesReceived)
     // Calls the user function which will take care of parsing arguments and creating the return data
     if (callables[callableIndex])
     {
-        dataToReturn = callables[callableIndex]();
+        dataToReturn = callables[callableIndex](currentArgs);
     }
 }
 
-void registerRPC(BufferedData* (*callable)(), unsigned int index)
+void I2CC::registerRPC(BufferedData* (*callable)(BufferedData&), unsigned int index)
 {
     if (index < callableCount)
     {
