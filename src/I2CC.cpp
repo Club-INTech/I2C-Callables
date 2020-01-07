@@ -63,4 +63,12 @@ void handleWrite(int bytesReceived)
         dataToReturn = callables[callableIndex]();
     }
 }
+
+void registerRPC(BufferedData* (*callable)(), unsigned int index)
+{
+    if (index < callableCount)
+    {
+        callables[index] = callable;
+    }
+}
 }

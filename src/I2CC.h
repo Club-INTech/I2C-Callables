@@ -49,8 +49,13 @@ static BufferedData currentArgs;
 /// Initialize I2C slave then loop indefinitely, handle communications and function calls.
 void startI2CC(uint8_t slaveID);
 
+// Functions that handle Wire I2C callbacks
 void sendDataBack();
 void handleWrite(int bytesReceived);
+
+/// Adds callbacks to the callables array.
+/// Replaces callback if one is already present at index.
+void registerRPC(BufferedData* (*callable)(), unsigned int index);
 }
 
 #endif //I2CC_TESTS_I2CC_H

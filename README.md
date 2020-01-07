@@ -14,10 +14,11 @@ For the time being, the library will only be compatible with the Arduino Wire li
 ### Slave
 
 On the slave side, where the library is used, the user has to register functions to be called by the master.
-This is done via the `TODO()` macro which will take care of declaring the function with a given name and store it at the requested ID.
+This is done via the `registerRPC` function which will take care of registering an existing function at the given index.  
+The RPC methods need to match the following prototype : `BufferedData* f()`
 
 Function definition is left up to the user.  
-Initialization of the `ReturnData` struct should be done in the function if it is needed, `dataArray` should be malloc'd.
+Initialization of the `BufferedData` struct should be done in the function if it is needed, `dataArray` should be malloc'd. Prefer using the provided constructor.
 If there is no return value, return `nullptr`.
 
 ### Master
@@ -32,7 +33,7 @@ If there is another write from the master in the meantime, the data will be dest
 ## TODO
 
  - [ ] Helper functions for parsing arguments
- - [ ] Macro for defining functions and adding them to the array
+ - [x] ~~Macro for defining functions and adding them to the array~~ Function registering RPC methods in the array.
  - [ ] Helper function for error cases (?)
  - [ ] Error cases in an enum ?
  
