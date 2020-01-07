@@ -7,35 +7,26 @@
 
 #include "Wire.h"
 
-/**
- * Struct allowing the return of any arbitrary data to the master.
- */
-typedef struct ReturnData {
-    /// Should be malloc'd
-    void* dataArray;
-    /// Length in bytes
-    unsigned int dataLength = 0;
-    /// First writable byte
-    unsigned int writeCursor = 0;
-
-    ReturnData(unsigned int size) {
-        dataLength = size;
-        dataArray = malloc(dataLength);
-    }
-} ReturnData;
-
 
 namespace I2CC {
 
 /**
- * Struct allowing to handle argument retrieval and parsing.
+ * Struct allowing the return of any arbitrary data to the master.
  */
-typedef struct Args {
-    void* args;
+typedef struct BufferedData {
+    /// Should be malloc'd
+    void* dataArray;
     /// Length in bytes
-    unsigned int argsLength = 0;
-    unsigned int readPosition = 0;
-} Args;
+    unsigned int dataLength = 0;
+    unsigned int cursor = 0;
+
+    BufferedData() = default;
+
+    explicit BufferedData(unsigned int size) {
+        dataLength = size;
+        dataArray = malloc(dataLength);
+    }
+} BufferedData;
 
 static constexpr int callableCount = 20;
 
@@ -44,16 +35,16 @@ static constexpr uint8_t ERR_Read = 255;
 static constexpr uint8_t ERR_Write = 254;
 
 /// Array of function pointers on user-defined functions.
-/// ReturnData* should be nullptr if not used, else instantiation is left to the function.
-static ReturnData* (*callables[callableCount])() = {nullptr};
+/// BufferedData* should be nullptr if not used, else instantiation is left to the function.
+static BufferedData* (*callables[callableCount])() = {nullptr};
 
 
 /// Data saved after the master sent a write command, to be retrieved with a requestFrom.
 /// Data will be cleared after another write command.
-static ReturnData* dataToReturn = nullptr;
+static BufferedData* dataToReturn = nullptr;
 
 // Updated during each handleWrite() before calling user function
-static Args currentArgs;
+static BufferedData currentArgs;
 
 /// Initialize I2C slave then loop indefinitely, handle communications and function calls.
 void startI2CC(uint8_t slaveID);

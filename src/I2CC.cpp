@@ -41,8 +41,8 @@ void handleWrite(int bytesReceived)
 
     if (bytesReceived <= 0)
     {
-        // TODO/FIXME : Helper function? Better way?
-        dataToReturn = new ReturnData(1);
+        dataToReturn = new BufferedData(1);
+        // TODO : Replace with helper function
         *static_cast<uint8_t*>(dataToReturn->dataArray) = ERR_Write;
     }
 
@@ -50,12 +50,12 @@ void handleWrite(int bytesReceived)
     unsigned int callableIndex = Wire.read();
 
     // Update currentArgs status and adjust allocated memory if necessary
-    currentArgs.argsLength = bytesReceived - 1;
-    currentArgs.readPosition = 0;
-    currentArgs.args = realloc(currentArgs.args, currentArgs.argsLength);
+    currentArgs.dataLength = bytesReceived - 1;
+    currentArgs.cursor = 0;
+    currentArgs.dataArray = realloc(currentArgs.dataArray, currentArgs.dataLength);
 
     // Retrieve the new arguments
-    Wire.readBytes(static_cast<uint8_t*>(currentArgs.args),currentArgs.argsLength);
+    Wire.readBytes(static_cast<uint8_t*>(currentArgs.dataArray),currentArgs.dataLength);
 
     // Calls the user function which will take care of parsing arguments and creating the return data
     if (callables[callableIndex])
