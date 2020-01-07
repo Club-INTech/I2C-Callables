@@ -22,6 +22,10 @@ typedef struct BufferedData {
     explicit BufferedData(unsigned int size) {
         dataLength = size;
         dataArray = malloc(dataLength);
+        if (!dataArray)
+        {
+            dataLength = 0;
+        }
     }
 
     ~BufferedData() {

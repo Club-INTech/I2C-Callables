@@ -54,6 +54,8 @@ void I2CC::handleWrite(int bytesReceived)
     currentArgs.cursor = 0;
     currentArgs.dataArray = realloc(currentArgs.dataArray, currentArgs.dataLength);
 
+    if (!currentArgs.dataArray) return;
+
     // Retrieve the new arguments
     Wire.readBytes(static_cast<uint8_t*>(currentArgs.dataArray),currentArgs.dataLength);
 
