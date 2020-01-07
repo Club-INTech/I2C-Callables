@@ -29,11 +29,14 @@ The I²C message is thus as follows : `Slave_ID RPC_ID [Arguments ...]` where bo
 If the function returns some data, it will be stored and delivered on the next `requestFrom()` call.  
 If there is another write from the master in the meantime, the data will be destroyed.
 
+### Both
+
+In both cases you can use the `putData` and `getData` functions to insert or extract data in or from a `BufferedData` object.  
+⚠️ Both functions increment `BufferedData::cursor` and use it as the indicator to start processing. Thus, using both functions on the same `BufferedData` requires some extra attention.
 
 ## TODO
 
- - [ ] Helper functions for parsing arguments
+ - [x] Helper functions for parsing arguments
  - [x] ~~Macro for defining functions and adding them to the array~~ Function registering RPC methods in the array.
- - [ ] Helper function for error cases (?)
  - [ ] Error cases in an enum ?
  

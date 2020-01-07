@@ -35,15 +35,13 @@ void handleWrite(int bytesReceived)
 {
     if (dataToReturn)
     {
-        free(dataToReturn->dataArray);
         delete dataToReturn;
     }
 
     if (bytesReceived <= 0)
     {
         dataToReturn = new BufferedData(1);
-        // TODO : Replace with helper function
-        *static_cast<uint8_t*>(dataToReturn->dataArray) = ERR_Write;
+        putData(ERR_Write,dataToReturn);
     }
 
     // Read the index now as the call is performed last
