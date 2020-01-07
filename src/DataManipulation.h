@@ -43,7 +43,7 @@ bool putData(const T& data, BufferedData* buffer)
     }
 
     // Pointer arithmetic on void* is forbidden in C++, cast to an int capable of holding a pointer
-    T* inputPosition = reinterpret_cast<T*>(reinterpret_cast<intptr_t>(buffer->dataArray)+buffer->cursor);
+    T* inputPosition = reinterpret_cast<T*>(reinterpret_cast<intptr_t>(buffer->dataArray) + (buffer->cursor));
     *inputPosition = data;
 
     // Update the position of the cursor
@@ -65,7 +65,7 @@ bool getData(T& out, BufferedData* buffer)
         return false;
     }
 
-    T* readPosition = reinterpret_cast<T*>(reinterpret_cast<intptr_t>(buffer->dataArray)+buffer->cursor);
+    T* readPosition = reinterpret_cast<T*>(reinterpret_cast<intptr_t>(buffer->dataArray) + (buffer->cursor));
     out = *readPosition;
 
     buffer->cursor += size;
