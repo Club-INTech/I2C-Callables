@@ -46,6 +46,11 @@ In both cases you can use the `putData` and `getData` functions to insert or ext
  - Make sure both your microcontrollers use the same endianness. Set the `swapEndianness` argument of `putData` or `getData` to true if that's not the case.
  - Template deduction can sometimes use the standard type and cause issues. For example, `uint8_t` being deduced as an `int` (which can be as much as 4 times bigger!). In this case, explicitly use the template argument. For example : `putData<uint8_t>`.
 
+## Examples
+
+ - Remote blinky : the master periodically asks the slave to turn its LED on or OFF, while blinking itself.
+ - Remote counter : the master sends a number to the slave which will increment it and send it back to be sent over USB.
+
 ## TODO
 
  - [x] Helper functions for parsing arguments
