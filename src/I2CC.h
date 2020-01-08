@@ -39,6 +39,15 @@ void handleWrite(int bytesReceived);
 /// Adds callbacks to the callables array.
 /// Replaces callback if one is already present at index.
 void registerRPC(BufferedData* (*callable)(BufferedData&), unsigned int index);
+
+//
+// Helper functions for the master.
+//
+
+/// Execute a callable function on a slave, arguments optional.
+void executeRPC(uint8_t slaveID, uint8_t rpcID, BufferedData* arguments = nullptr);
+/// Execute a callable function and retrieve the data it sends back, arguments optional.
+bool dataRequest(uint8_t slaveID, uint8_t rpcID, BufferedData& returnData, BufferedData* arguments = nullptr);
 }
 
 #endif //I2CC_TESTS_I2CC_H

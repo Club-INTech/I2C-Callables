@@ -72,3 +72,33 @@ void I2CC::registerRPC(BufferedData* (*callable)(BufferedData&), unsigned int in
         callables[index] = callable;
     }
 }
+
+
+void I2CC::executeRPC(uint8_t slaveID, uint8_t rpcID, BufferedData* arguments)
+{
+    Wire.beginTransmission(slaveID);
+
+    Wire.write(rpcID);
+
+    if (arguments && arguments->dataArray)
+    {
+        Wire.write(static_cast<uint8_t*>(arguments->dataArray),arguments->dataLength);
+    }
+
+    Wire.endTransmission();
+}
+
+bool I2CC::dataRequest(uint8_t slaveID, uint8_t rpcID, BufferedData& returnData, BufferedData* arguments)
+{
+    executeRPC(slaveID,rpcID,arguments);
+
+    if (returnData.dataLength == 0)
+    {
+        return false;
+    }
+
+    Wire.requestFrom(slaveID, returnData.dataLength);
+    size_t readBytes = Wire.readBytes(static_cast<uint8_t*>(returnData.dataArray),returnData.dataLength);
+
+    return readBytes == returnData.dataLength;
+}

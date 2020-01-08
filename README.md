@@ -31,6 +31,9 @@ The I²C message is thus as follows : `Slave_ID RPC_ID [Arguments ...]` where bo
 If the function returns some data, it will be stored and delivered on the next `requestFrom()` call.  
 If there is another write from the master in the meantime, the data will be destroyed.
 
+The master can use the wrapper functions `executeRPC` and `dataRequest` to execute a method on the slave with or without retrieving what it returns, respectively.
+Both take optional arguments to send to the slave via a `BufferedData`.
+
 ### Both
 
 In both cases you can use the `putData` and `getData` functions to insert or extract data in or from a `BufferedData` object.  
