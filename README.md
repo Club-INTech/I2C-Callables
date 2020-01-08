@@ -32,7 +32,13 @@ If there is another write from the master in the meantime, the data will be dest
 ### Both
 
 In both cases you can use the `putData` and `getData` functions to insert or extract data in or from a `BufferedData` object.  
-⚠️ Both functions increment `BufferedData::cursor` and use it as the indicator to start processing. Thus, using both functions on the same `BufferedData` requires some extra attention.
+
+#### ⚠️ Warnings
+
+ - Both functions increment `BufferedData::cursor` and use it as the indicator to start processing. Thus, using both functions on the same `BufferedData` requires some extra attention.
+ - As internal padding in structs is implementation dependant, try to order from largest to smallest types or use only one type.
+ - Make sure both your microcontrollers use the same endianness. Set the `swapEndianness` argument of `putData` or `getData` to true if that's not the case.
+ - Template deduction can sometimes use the standard type and cause issues. For example, `uint8_t` being deduced as an `int` (which can be as much as 4 times bigger!). In this case, explicitly use the template argument. For example : `putData<uint8_t>`.
 
 ## TODO
 

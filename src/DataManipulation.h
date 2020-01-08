@@ -5,7 +5,7 @@
 #ifndef I2CC_TESTS_DATAMANIPULATION_H
 #define I2CC_TESTS_DATAMANIPULATION_H
 
-#include "I2CC.h"
+#include "Arduino.h"
 
 namespace I2CC {
 
@@ -33,13 +33,17 @@ typedef struct BufferedData {
     }
 } BufferedData;
 
+/// Swaps the order of individual bytes of an array, effectively changing the endianness.
+void swapBytes(void* arrayToSwap, unsigned int size);
 
 /// Inserts data in a BufferedData object.
 /// The cursor shows where to start inserting data.
 /// Checks for out of bounds.
+/// Use swapBytes to work with a different endianness.
+/// \param changeEndianness Swap the order of received bytes.
 /// \return True if the data could be inserted
 template<typename T, int size = sizeof(T)>
-bool putData(const T& data, BufferedData* buffer)
+bool putData(const T& data, BufferedData* buffer, bool changeEndianness = false)
 {
     if (size > buffer->dataLength - buffer->cursor)
     {
@@ -50,6 +54,11 @@ bool putData(const T& data, BufferedData* buffer)
     T* inputPosition = reinterpret_cast<T*>(reinterpret_cast<intptr_t>(buffer->dataArray) + (buffer->cursor));
     *inputPosition = data;
 
+    if (changeEndianness)
+    {
+        swapBytes(inputPosition,size);
+    }
+
     // Update the position of the cursor
     buffer->cursor += size;
 
@@ -59,10 +68,12 @@ bool putData(const T& data, BufferedData* buffer)
 /// Extracts data from a BufferedData object.
 /// The cursor shows where to start reading in the array.
 /// Checks for out of bounds.
+/// Use swapBytes to work with a different endianness.
 /// \param out Variable in which the data will be written
+/// \param changeEndianness Swap the order of received bytes.
 /// \return True if the data could be extracted
 template<typename T, int size = sizeof(T)>
-bool getData(T& out, BufferedData* buffer)
+bool getData(T& out, BufferedData* buffer, bool changeEndianness = false)
 {
     if (size > buffer->dataLength - buffer->cursor)
     {
@@ -70,6 +81,12 @@ bool getData(T& out, BufferedData* buffer)
     }
 
     T* readPosition = reinterpret_cast<T*>(reinterpret_cast<intptr_t>(buffer->dataArray) + (buffer->cursor));
+
+    if (changeEndianness)
+    {
+        swapBytes(readPosition,size);
+    }
+
     out = *readPosition;
 
     buffer->cursor += size;
