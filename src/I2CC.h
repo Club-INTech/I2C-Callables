@@ -10,6 +10,8 @@
 
 namespace I2CC {
 
+#if !defined(I2CC_MASTER)
+
 static constexpr int callableCount = 20;
 
 // TODO : Maybe make an enum
@@ -40,6 +42,8 @@ void handleWrite(int bytesReceived);
 /// Replaces callback if one is already present at index.
 void registerRPC(BufferedData* (*callable)(BufferedData&), unsigned int index);
 
+#else
+
 //
 // Helper functions for the master.
 //
@@ -48,6 +52,9 @@ void registerRPC(BufferedData* (*callable)(BufferedData&), unsigned int index);
 void executeRPC(uint8_t slaveID, uint8_t rpcID, BufferedData* arguments = nullptr);
 /// Execute a callable function and retrieve the data it sends back, arguments optional.
 bool dataRequest(uint8_t slaveID, uint8_t rpcID, BufferedData& returnData, BufferedData* arguments = nullptr);
+
+#endif
+
 }
 
 #endif //I2CC_TESTS_I2CC_H

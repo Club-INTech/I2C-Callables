@@ -32,7 +32,8 @@ If the function returns some data, it will be stored and delivered on the next `
 If there is another write from the master in the meantime, the data will be destroyed.
 
 The master can use the wrapper functions `executeRPC` and `dataRequest` to execute a method on the slave with or without retrieving what it returns, respectively.
-Both take optional arguments to send to the slave via a `BufferedData`.
+Both take optional arguments to send to the slave via a `BufferedData`.  
+To access those functions, the macro `I2CC_MASTER` must be defined. It will also prevent the compilation of slave-specific features.
 
 ### Both
 

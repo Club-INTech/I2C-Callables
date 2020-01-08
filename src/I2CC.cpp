@@ -6,6 +6,8 @@
 
 using namespace I2CC;
 
+#if !defined(I2CC_MASTER)
+
 void I2CC::startI2CC(uint8_t slaveID, bool infiniteLoop)
 {
     // Begin as a slave and set ID
@@ -73,6 +75,7 @@ void I2CC::registerRPC(BufferedData* (*callable)(BufferedData&), unsigned int in
     }
 }
 
+#else
 
 void I2CC::executeRPC(uint8_t slaveID, uint8_t rpcID, BufferedData* arguments)
 {
@@ -102,3 +105,5 @@ bool I2CC::dataRequest(uint8_t slaveID, uint8_t rpcID, BufferedData& returnData,
 
     return readBytes == returnData.dataLength;
 }
+
+#endif
