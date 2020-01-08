@@ -21,6 +21,8 @@ Function definition is left up to the user.
 Initialization of the `BufferedData` struct should be done in the function if it is needed, `dataArray` should be malloc'd. Prefer using the provided constructor.
 If there is no return value, return `nullptr`.
 
+The `startI2CC` needs to be called for the library to function, independently of the `registerRPC` calls. The method can return or loop indefinitely.
+
 ### Master
 
 Remote procedure call on the slave is realised by "writing" a function ID followed by its arguments, if it has any, to the slave.  

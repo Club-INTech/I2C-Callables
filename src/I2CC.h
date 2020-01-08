@@ -28,8 +28,9 @@ static BufferedData* dataToReturn = nullptr;
 // Updated during each handleWrite() before calling user function
 static BufferedData currentArgs(0);
 
-/// Initialize I2C slave then loop indefinitely, handle communications and function calls.
-void startI2CC(uint8_t slaveID);
+/// Initialize I2C slave, handle communications and function calls.
+/// Can loop indefinitely or return.
+void startI2CC(uint8_t slaveID, bool infiniteLoop = true);
 
 // Functions that handle Wire I2C callbacks
 void sendDataBack();

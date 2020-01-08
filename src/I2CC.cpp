@@ -6,7 +6,7 @@
 
 using namespace I2CC;
 
-void __attribute__((noreturn)) I2CC::startI2CC(uint8_t slaveID)
+void I2CC::startI2CC(uint8_t slaveID, bool infiniteLoop)
 {
     // Begin as a slave and set ID
     Wire.begin(slaveID);
@@ -15,8 +15,7 @@ void __attribute__((noreturn)) I2CC::startI2CC(uint8_t slaveID)
     Wire.onReceive(handleWrite);
     Wire.onRequest(sendDataBack);
 
-    // TODO : Decide if we want to give back execution
-    while (true)
+    while (infiniteLoop)
     {}
 }
 
