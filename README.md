@@ -10,7 +10,7 @@ Elle fourni aussi deux fonctions côté maître pour simplifier l'envoi et la r�
 
 ## Compatibilité
 
-Pour le moment, la bibliothèque ne sera compatbiel qu'avec la bibliothèque Arduino Wire.
+Pour le moment, la bibliothèque ne sera compatible qu'avec la bibliothèque Arduino Wire.
 
 
 ## Utilisation
@@ -38,14 +38,14 @@ Si une autre fonction est appelée entre temps, la valeur de retour précédente
 
 ### Commun aux deux [🏠][Back to the top]
 
-Des deux côtés de la communication, il est possible (et conseillé) d'utiser les fonctions `putDta` et `getData` pour insérer ou récupérer des données d'un `BufferedData`.
+Des deux côtés de la communication, il est possible (et conseillé) d'utiser les fonctions `putData` et `getData` pour insérer ou récupérer des données d'un `BufferedData`.
 
 #### ⚠️ Avertissements
 
  - Les deux fonctions incrémentent `BufferedData::cursor` et l'utilisent pour commencer le traitement. De ce fait, utiliser les deux fonctions sur le même `BufferedData` nécessite de faire un peu attention.
  - Du fait que le bourrage interne des structs dépend de l'implémentation, il est conseillé d'ordonner les types du plus gros au plus petit ou de n'utiliser qu'un seul type.
  - Faire attention au boutisme des deux microcontrôlleurs. Si il est différent, mettre l'argument `swapEndianness` de `putData` et `getData` à vrai.
- - La déduction des arguments template peut parfois promouvoir un type vers un type standard et causer des tailles inattendues. Par exemple, `uint8_t` sera déduit comme un `int` (qui peut être jusqu'à 4 fois plus gros!). Dans ce cas, il explicitement donner l'argument template. Par exemple : `putData<uint8_t>`.
+ - La déduction des arguments template peut parfois promouvoir un type vers un type standard et causer des tailles inattendues. Par exemple, `uint8_t` sera déduit comme un `int` (qui peut être jusqu'à 4 fois plus gros!). Dans ce cas, il faut explicitement donner l'argument template. Par exemple : `putData<uint8_t>`.
 
 ## Exemples
 
