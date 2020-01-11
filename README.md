@@ -14,7 +14,7 @@ Pour le moment, la bibliothèque ne sera compatbiel qu'avec la bibliothèque Ard
 
 
 ## Utilisation
-### Esclave
+### Esclave [🏠][Back to the top]
 
 Du côté de l'esclave, l'utilisateur doit enregistrer des fonctions pour qu'elles soient appelables par le maître.
 Cela est fait grâce à la fonction `registerRPC` qui permet d'enregistrer une fonction à l'indice demandé.  
@@ -24,7 +24,7 @@ Les fonctions à appeler doivent être créées par l'utilisateur.
 La struct `BufferedData` de retour doit être initialisée dans la fonction si besoin.Le constructeur prend la taille des données à stocker en argument.
 Si la fonction ne retourne pas de données, retourner `nullptr`.
 
-### Maître
+### Maître [🏠][Back to the top]
 
 Le maître peut utiliser les fonctions `dataRequest` et `executeRPC` afin d'éxécuter une fonction sur l'esclave en récupérant, ou pas, les éventuelles données retournées.
 Elles prennent toutes les deux un pointeur (optionnel) sur un `BufferedData` afin d'envoyer des arguments à l'esclave.  
@@ -36,7 +36,7 @@ Le message I²C est donc comme suit : `ID_Esclave ID_Fonction [Arguments ...]`, 
 Si la fonction appelée sur l'esclave renvoie quelque chose, la valeur de retour sera stockée sur l'esclave et sera envoyée au prochain appel de `Wire.requestFrom`.  
 Si une autre fonction est appelée entre temps, la valeur de retour précédente sera effacée.
 
-### Commun aux deux
+### Commun aux deux [🏠][Back to the top]
 
 Des deux côtés de la communication, il est possible (et conseillé) d'utiser les fonctions `putDta` et `getData` pour insérer ou récupérer des données d'un `BufferedData`.
 
@@ -61,7 +61,7 @@ Fin du README français.
 
 Start of the English README.
 
-## Purpose
+## Purpose [🏠][Back to the top]
 
 The goal of this library is to provide a framework that handles the I²C communication as an I²C slave, the registration of functions callable by the master and unified data manipulation.  
 It also provides two wrapper functions on the master side to handle data sending and receiving.
@@ -71,7 +71,7 @@ It also provides two wrapper functions on the master side to handle data sending
 For the time being, the library will only be compatible with the Arduino Wire library.
 
 ## Usage
-### Slave
+### Slave [🏠][Back to the top]
 
 On the slave side, the user has to register functions to be called by the master.
 This is done via the `registerRPC` function which will take care of registering an existing function at the given index.  
@@ -83,7 +83,7 @@ If there is no return value, return `nullptr`.
 
 The `startI2CC` needs to be called for the library to function, independently of the `registerRPC` calls. The method can return or loop indefinitely.
 
-### Master
+### Master [🏠][Back to the top]
 
 The master can use the wrapper functions `executeRPC` and `dataRequest` to execute a function on the slave with or without retrieving what it returns.
 Both take optional arguments to send to the slave via a `BufferedData`.  
@@ -95,7 +95,7 @@ The I²C message is thus as follows : `Slave_ID RPC_ID [Arguments ...]` where bo
 If the function returns some data, it will be stored and delivered on the next `Wire.requestFrom` call.  
 If there is another write from the master in the meantime, the data will be destroyed.
 
-### Both
+### Both [🏠][Back to the top]
 
 In both cases you can use the `putData` and `getData` functions to insert or extract data in or from a `BufferedData` object.  
 
@@ -113,9 +113,11 @@ Example code can be found in the `examples/` folder of the repo.
  - Remote blinky : the master periodically asks the slave to turn its LED on or off, while blinking itself.
  - Remote counter : the master sends a number to the slave which it will increment and send it back to be sent over USB.
 
-## TODO
+## TODO [🏠][Back to the top]
 
  - [x] Helper functions for parsing arguments
  - [x] ~~Macro for defining functions and adding them to the array~~ Function registering RPC methods in the array.
  - [ ] Error cases in an enum ?
  
+ 
+ [Back to the top]: #IC-Callables
