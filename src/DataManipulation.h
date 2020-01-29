@@ -29,7 +29,7 @@ typedef struct BufferedData {
     }
 
     ~BufferedData() {
-        if (!dataArray) free(dataArray);
+        if (dataArray) free(dataArray);
     }
 } BufferedData;
 
