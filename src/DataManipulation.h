@@ -28,6 +28,11 @@ typedef struct BufferedData {
         }
     }
 
+    /// Rewinds a buffer to its beginning, ie move the cursor to 0
+    void rewind() {
+        cursor = 0;
+    }
+
     ~BufferedData() {
         if (dataArray) free(dataArray);
     }
