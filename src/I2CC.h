@@ -12,7 +12,15 @@ namespace I2CC {
 
 #if !defined(I2CC_MASTER)
 
-static constexpr int callableCount = 20;
+// Define a default count of 20 callables if not specified
+#if !defined(I2CC_CALLABLES_COUNT)
+#define I2CC_CALLABLES_COUNT 20
+#endif
+
+static constexpr int callableCount = I2CC_CALLABLES_COUNT;
+
+#undef I2CC_CALLABLES_COUNT
+
 
 // TODO : Maybe make an enum
 static constexpr uint8_t ERR_Read = 255;

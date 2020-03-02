@@ -18,7 +18,8 @@ Pour le moment, la bibliothèque ne sera compatible qu'avec la bibliothèque Ard
 
 Du côté de l'esclave, l'utilisateur doit enregistrer des fonctions pour qu'elles soient appelables par le maître.
 Cela est fait grâce à la fonction `registerRPC` qui permet d'enregistrer une fonction à l'indice demandé.  
-Pour qu'une fonction puisse être enregistrée et appelée par le maître, elle doit avoir le prototype suivant : `BufferedData* f(BufferedData&)`.
+Pour qu'une fonction puisse être enregistrée et appelée par le maître, elle doit avoir le prototype suivant : `BufferedData* f(BufferedData&)`.  
+Par défaut, il est possible d'enregistrer jusqu'à 20 fonctions (d'indices 0 à 19 donc). Cependant, il est possible de changer la valeur en définissant la macro `I2CC_CALLABLES_COUNT` à la valeur souhaitée.
 
 Les fonctions à appeler doivent être créées par l'utilisateur.  
 La struct `BufferedData` de retour doit être initialisée dans la fonction si besoin.Le constructeur prend la taille des données à stocker en argument.
@@ -75,7 +76,8 @@ For the time being, the library will only be compatible with the Arduino Wire li
 
 On the slave side, the user has to register functions to be called by the master.
 This is done via the `registerRPC` function which will take care of registering an existing function at the given index.  
-The RPC methods need to match the following prototype : `BufferedData* f(BufferedData&)`
+The RPC methods need to match the following prototype : `BufferedData* f(BufferedData&)`  
+By default, you can register up to 20 callables (indexes 0 to 19) but you can change it by defining the macro `I2CC_CALLABLES_COUNT` with the desired value.
 
 Function definition is left up to the user.  
 Initialization of the `BufferedData` struct should be done in the function if it is needed. The constructor takes the size of the data to store as an argument.
