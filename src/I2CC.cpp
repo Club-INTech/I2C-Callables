@@ -61,7 +61,7 @@ void I2CC::handleWrite(int bytesReceived)
     Wire.readBytes(static_cast<uint8_t*>(currentArgs.dataArray),currentArgs.dataLength);
 
     // Calls the user function which will take care of parsing arguments and creating the return data
-    if (callables[callableIndex])
+    if (callableIndex < callableCount && callables[callableIndex])
     {
         dataToReturn = callables[callableIndex](currentArgs);
     }
